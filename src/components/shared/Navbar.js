@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //Context
@@ -6,12 +6,16 @@ import { cartContext } from "../../context/CartContextProvider";
 
 const Navbar = () => {
   const { state } = useContext(cartContext);
+  const [stateItemsCounter, SetstateItemsCounter] = useState();
+  useEffect(() => {
+    SetstateItemsCounter(state.itemsCounter);
+  }, [state]);
   return (
-    <div className="container-fluid bg-light">
+    <div className="navbar-container-fluid container-fluid bg-light">
       <div className="container">
-        <div className="py-5 d-flex justify-content-between align-items-center">
+        <div className="navbar-container">
           <div>
-            <Link to="/products">products</Link>
+            <Link to="/products">Products</Link>
           </div>
           <div>
             <Link to="/cart">
@@ -21,11 +25,10 @@ const Navbar = () => {
               >
                 <i
                   style={{ color: "#fff" }}
-                  className="fa-solid fa-basket-shopping"
+                  className="fa-solid fa-cart-shopping"
                 ></i>
-
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {state.itemsCounter}
+                  {stateItemsCounter}
                 </span>
               </button>{" "}
             </Link>
